@@ -1,5 +1,7 @@
 package states;
 
+import sprites.Base;
+import flixel.math.FlxPoint;
 import sprites.units.Knight;
 import flixel.group.FlxGroup;
 import flixel.tile.FlxTilemap;
@@ -12,11 +14,17 @@ import flixel.math.FlxMath;
 
 class PlayState extends FlxState
 {
+	private var _friendlyBasePosition:FlxPoint;
+	private var _enemyBasePosition:FlxPoint;
+
 	private var _myUnits:FlxGroup;
 
 	private var _btnBuyTower:FlxButton;
 	private var _btnBuyUnit:FlxButton;
 	private var _map:FlxTilemap;
+
+	private var _friendlyBase:Base;
+	private var _enemyBase:Base;
 
 	// True if the user is currently trying to buy a tower
 	private var _buyingTower:Bool = false;
@@ -29,12 +37,22 @@ class PlayState extends FlxState
 		_map = new FlxTilemap();
 		var drawIndex:Int = 0;
 		var collideIndex:Int = 2;
-		_map.loadMapFromCSV("assets/data/map.csv",
+		_map.loadMapFromCSV("assets/data/new_map.csv",
 							"assets/images/world_tileset.png",
 							GameConstants.TILE_SIZE,
 							GameConstants.TILE_SIZE,
-							0,drawIndex, collideIndex);
+							0,TileIndexes.DRAW_INDEX, TileIndexes.COLLISION_INDEX);
 		add(_map);
+
+		//Load the bases:
+		var friendlyBasePositions:Array<FlxPoint>  = _map.getTileCoords(TileIndexes.FRIENDLY_BASE_INDEX,false);
+		var enemyBasePositions:Array<FlxPoint> = _map.getTileCoords(TileIndexes.ENEMY_BASE_INDEX, false);
+		_friendlyBasePosition = friendlyBasePositions[0];
+		_enemyBasePosition = enemyBasePositions[0];
+		// It's the bottom of the 9th, bases loaded,
+		_enemyBase = new Base(_enemyBasePosition);
+		add(_enemyBase);
+
 
 		_myUnits = new FlxGroup();
 		add(_myUnits);

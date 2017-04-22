@@ -1,0 +1,12 @@
+20x20 pixels per tile
+Recommended 8x3 tiles for the tileset,
+resulting in size 160x60
+
+0-7: Walkable tiles
+
+8: Denotes friendly base
+9: Denotes enemy base
+10: Denotes friendly tower
+11: Denotes enemy tower
+
+12-23: Unwalkable tile
