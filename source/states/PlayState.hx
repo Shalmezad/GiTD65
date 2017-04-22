@@ -1,5 +1,7 @@
 package states;
 
+import flixel.util.FlxPath;
+import sprites.units.Unit;
 import sprites.Base;
 import flixel.math.FlxPoint;
 import sprites.units.Knight;
@@ -61,6 +63,7 @@ class PlayState extends FlxState
 		_btnBuyUnit = new FlxButton(160,440,"Unit",buyUnitCallback);
 		add(_btnBuyTower);
 		add(_btnBuyUnit);
+
 	}
 
 	override public function update(elapsed:Float):Void
@@ -78,7 +81,12 @@ class PlayState extends FlxState
 				// Figure out if they clicked a valid spot:
 				if(!_map.overlapsPoint(FlxG.mouse.getWorldPosition(FlxG.camera)) && FlxG.mouse.y < 400)
 				{
-					_myUnits.add(new Knight(FlxG.mouse.getPosition()));
+					var start:FlxPoint = FlxG.mouse.getPosition();
+					var unit:Unit = new Knight(start);
+					// Create a path:
+					var pathPoints:Array<FlxPoint> = _map.findPath(start, _enemyBase.center());
+					unit.path.start(pathPoints);
+					add(unit);
 				}
 			}
 		}
