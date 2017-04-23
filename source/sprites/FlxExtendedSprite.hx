@@ -17,4 +17,10 @@ class FlxExtendedSprite extends FlxSprite
 	{
 		return new FlxPoint(centerX(), centerY());
 	}
+
+	public function setCenter(center:FlxPoint)
+	{
+		this.x = center.x - width / 2;
+		this.y = center.y - height / 2;
+	}
 }

@@ -1,5 +1,5 @@
 package ;
 class GameConstants
 {
-	public static var TILE_SIZE:Int = 20;
+	public static var TILE_SIZE:Int = 32;
 }

@@ -14,7 +14,7 @@ class TileIndexes
 	 */
 
 	public static var DRAW_INDEX:Int = 0;
-	public static var COLLISION_INDEX:Int = 8;
-	public static var FRIENDLY_BASE_INDEX:Int = 8;
-	public static var ENEMY_BASE_INDEX:Int = 9;
+	public static var COLLISION_INDEX:Int = 28;
+	public static var FRIENDLY_BASE_INDEX:Int = 28;
+	public static var ENEMY_BASE_INDEX:Int = 29;
 }
