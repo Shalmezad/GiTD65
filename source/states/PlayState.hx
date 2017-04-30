@@ -23,6 +23,7 @@ class PlayState extends FlxState
 
 	private var _myUnits:FlxGroup;
 	private var _myUnitSightRadius:FlxGroup;
+	private var _myUnitHitBoxes:FlxGroup;
 	private var _enemyUnits:FlxGroup;
 
 	private var _btnBuyTower:FlxButton;
@@ -44,7 +45,7 @@ class PlayState extends FlxState
 		var drawIndex:Int = 0;
 		var collideIndex:Int = 2;
 		_map.loadMapFromCSV("assets/data/new_map2.csv",
-							"assets/images/nutter666_spritesheet_revised.png",
+							"assets/images/nutter666_spritesheet_revised2.png",
 							GameConstants.TILE_SIZE,
 							GameConstants.TILE_SIZE,
 							0,TileIndexes.DRAW_INDEX, TileIndexes.COLLISION_INDEX);
@@ -91,7 +92,10 @@ class PlayState extends FlxState
 
 	private function enemySighted(s:SightRadius, u:Unit):Void
 	{
-		s.unit.target = u;
+		if(u.alive)
+		{
+			s.unit.target = u;
+		}
 	}
 
 	private function handleInput():Void

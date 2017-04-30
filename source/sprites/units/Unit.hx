@@ -28,6 +28,10 @@ class Unit extends FlxExtendedSprite
 			this.path.active = false;
 			// Go TOWARDS the enemy:
 			FlxVelocity.moveTowardsPoint(this, target.center(), Std.int(100));
+			if(!target.alive)
+			{
+				this.target = null;
+			}
 		}
 	}
 }
