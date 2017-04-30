@@ -1,5 +1,6 @@
 package states;
 
+import sprites.Hitbox;
 import sprites.SightRadius;
 import sprites.units.Imp;
 import flixel.util.FlxPath;
@@ -23,7 +24,7 @@ class PlayState extends FlxState
 
 	private var _myUnits:FlxGroup;
 	private var _myUnitSightRadius:FlxGroup;
-	private var _myUnitHitBoxes:FlxGroup;
+	private var _myUnitAttackHitBoxes:FlxGroup;
 	private var _enemyUnits:FlxGroup;
 
 	private var _btnBuyTower:FlxButton;
@@ -68,6 +69,8 @@ class PlayState extends FlxState
 		add(_myUnits);
 		_myUnitSightRadius = new FlxGroup();
 		add(_myUnitSightRadius);
+		_myUnitAttackHitBoxes = new FlxGroup();
+		add(_myUnitAttackHitBoxes);
 		_enemyUnits = new FlxGroup();
 		add(_enemyUnits);
 
@@ -88,6 +91,7 @@ class PlayState extends FlxState
 		super.update(elapsed);
 		handleInput();
 		FlxG.overlap(this._myUnitSightRadius, this._enemyUnits,enemySighted);
+		FlxG.overlap(this._myUnitAttackHitBoxes, this._enemyUnits, hitEnemy);
 	}
 
 	private function enemySighted(s:SightRadius, u:Unit):Void
@@ -96,6 +100,11 @@ class PlayState extends FlxState
 		{
 			s.unit.target = u;
 		}
+	}
+
+	private function hitEnemy(h:Hitbox, u:Unit):Void
+	{
+		u.hurt(h.health);
 	}
 
 	private function handleInput():Void
@@ -126,6 +135,8 @@ class PlayState extends FlxState
 		var sightRadius:SightRadius = new SightRadius();
 		sightRadius.unit = unit;
 		this._myUnitSightRadius.add(sightRadius);
+		// Add the hitboxes to the unit so it can add attacks:
+		unit._attackHitBoxes = this._myUnitAttackHitBoxes;
 	}
 
 

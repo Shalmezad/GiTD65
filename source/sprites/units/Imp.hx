@@ -6,6 +6,7 @@ class Imp extends Unit
 	{
 		super(position);
 		loadGraphic("assets/images/unit_imp.png");
+		this.health = 100;
 	}
 }
 
